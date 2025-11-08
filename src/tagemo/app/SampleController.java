@@ -1,4 +1,4 @@
-package tagemo.main;
+package tagemo.app;
 
 public class SampleController {
 	

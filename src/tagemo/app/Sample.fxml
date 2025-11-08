@@ -2,6 +2,6 @@
 	
 <?import javafx.scene.layout.BorderPane?>
 	
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="tagemo.main.SampleController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="tagemo.app.SampleController">
 	<!-- TODO Add Nodes -->
 </BorderPane>

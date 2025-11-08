@@ -1,4 +1,4 @@
-package tagemo.main;
+package tagemo.app;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
