@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.23050058207217694" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="861.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tagemo.app.LandingController">
+   <items>
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="195.0" spacing="10.0" SplitPane.resizableWithParent="false">
+         <children>
+            <Label text="TAgeMO">
+               <font>
+                  <Font size="43.0" />
+               </font>
+            </Label>
+            <Button fx:id="studentBtn" mnemonicParsing="false" onAction="#handleStudentBtnAction" prefHeight="15.0" prefWidth="120.0" text="Studentai" />
+            <Button fx:id="groupBtn" mnemonicParsing="false" onAction="#handleGroupBtnAction" prefHeight="0.0" prefWidth="120.0" text="Grupės" />
+            <Button fx:id="attendanceBtn" mnemonicParsing="false" prefHeight="0.0" prefWidth="120.0" text="Lankomumas" />
+            <Button fx:id="attendanceBtn1" mnemonicParsing="false" prefHeight="0.0" prefWidth="120.0" text="Ataskaitos" />
+            <Button fx:id="attendanceBtn2" mnemonicParsing="false" prefHeight="0.0" prefWidth="120.0" text="Importas/Eksportas" />
+         </children>
+      </VBox>
+      <VBox prefHeight="490.0" prefWidth="751.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="createBtn" mnemonicParsing="false" onAction="#handleCreateBtnAction" text="Kurti" />
+                  <Button fx:id="addToGroupBtn" mnemonicParsing="false" onAction="#handleAddToGroupBtnAction" text="Pridet i grupe" />
+               </children>
+            </HBox>
+            <AnchorPane fx:id="contentPane" prefHeight="511.0" prefWidth="658.0" />
+         </children>
+      </VBox>
+   </items>
+</SplitPane>

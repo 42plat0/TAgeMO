@@ -1,31 +1,27 @@
 package tagemo.main;
 
-import java.util.List;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import tagemo.core.Attendance;
 import tagemo.core.Group;
 import tagemo.core.Groupable;
 import tagemo.core.Person;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class Student implements Groupable {
 
+	private long id;
 	private Person person;
-	private List<Attendance> attendances;
-
-	private List<Group> groups;
 
 	@Override
-	public List<Group> getGroups() {
-		return groups;
+	public void addToGroup(Group group) {
+		// TODO
 	}
 
 	@Override
-	public void setGroups(List<Group> groups) {
-		this.groups = groups;
+	public String toString() {
+		return id + ". " + person.toString();
 	}
-
 }
