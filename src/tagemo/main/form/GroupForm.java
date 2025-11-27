@@ -9,6 +9,10 @@ import tagemo.main.Form;
 
 public class GroupForm extends Form<Group> {
 
+	public GroupForm() {
+		initUI();
+	}
+
 	@Override
 	protected List<TextField> createFields() {
 		return List.of(new TextField("Pavadinimas"));
@@ -16,7 +20,7 @@ public class GroupForm extends Form<Group> {
 
 	@Override
 	protected void handleSubmit() {
-		String name = fields.get(0).getText();
+		String name = ((TextField) fields.get(0)).getText();
 
 		insertData(new Group(data.size() + 1, name));
 

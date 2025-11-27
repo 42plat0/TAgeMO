@@ -10,7 +10,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class AttendanceEntry {
+	private Integer id;
 	private Student student;
 	private LocalDate date;
 	private Boolean present;
+
+	public Boolean isPresent() {
+		return present;
+	}
+
+	public String isPresentString() {
+		return isPresent() ? "Taip" : "Ne";
+	}
 }

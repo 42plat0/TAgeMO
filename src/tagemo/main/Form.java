@@ -4,10 +4,10 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -19,11 +19,14 @@ public abstract class Form<T> {
 
 	public ObservableList<T> data;
 
-	public List<TextField> fields;
+	public List<? extends Node> fields;
 	public Stage stage;
 	public Button submitBtn = new Button("Patvirtinti");
 
 	public Form() {
+	}
+
+	public void initUI() {
 		fields = createFields();
 
 		stage = new Stage();
@@ -56,7 +59,7 @@ public abstract class Form<T> {
 
 	public abstract void setFormTarget(ObservableList<T> items);
 
-	protected abstract List<TextField> createFields();
+	protected abstract List<? extends Node> createFields();
 
 	protected abstract void handleSubmit();
 

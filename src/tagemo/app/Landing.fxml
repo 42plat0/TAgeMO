@@ -19,9 +19,9 @@
             </Label>
             <Button fx:id="studentBtn" mnemonicParsing="false" onAction="#handleStudentBtnAction" prefHeight="15.0" prefWidth="120.0" text="Studentai" />
             <Button fx:id="groupBtn" mnemonicParsing="false" onAction="#handleGroupBtnAction" prefHeight="0.0" prefWidth="120.0" text="Grupės" />
-            <Button fx:id="attendanceBtn" mnemonicParsing="false" prefHeight="0.0" prefWidth="120.0" text="Lankomumas" />
-            <Button fx:id="attendanceBtn1" mnemonicParsing="false" prefHeight="0.0" prefWidth="120.0" text="Ataskaitos" />
-            <Button fx:id="attendanceBtn2" mnemonicParsing="false" prefHeight="0.0" prefWidth="120.0" text="Importas/Eksportas" />
+            <Button fx:id="attendanceBtn" mnemonicParsing="false" onAction="#handleAttendanceBtnAction" prefHeight="0.0" prefWidth="120.0" text="Lankomumas" />
+            <Button fx:id="reportsBtn" mnemonicParsing="false" onAction="#handleReportsBtnAction" prefHeight="0.0" prefWidth="120.0" text="Ataskaitos" />
+            <Button fx:id="importExportBtn" mnemonicParsing="false" onAction="#handleImportExportBtnAction" prefHeight="0.0" prefWidth="120.0" text="Importas/Eksportas" />
          </children>
       </VBox>
       <VBox prefHeight="490.0" prefWidth="751.0">

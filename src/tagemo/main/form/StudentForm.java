@@ -10,6 +10,10 @@ import tagemo.main.Student;
 
 public class StudentForm extends Form<Student> {
 
+	public StudentForm() {
+		initUI();
+	}
+
 	@Override
 	protected List<TextField> createFields() {
 		return List.of(new TextField("Vardas"), new TextField("Pavardė"));
@@ -17,8 +21,8 @@ public class StudentForm extends Form<Student> {
 
 	@Override
 	protected void handleSubmit() {
-		String firstName = fields.get(0).getText();
-		String lastName = fields.get(1).getText();
+		String firstName = ((TextField) fields.get(0)).getText();
+		String lastName = ((TextField) fields.get(1)).getText();
 
 		insertData(new Student(data.size() + 1, new Person(firstName, lastName)));
 

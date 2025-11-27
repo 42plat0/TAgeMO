@@ -2,23 +2,20 @@ package tagemo.main.grid;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.TableColumn;
-import tagemo.core.Attendance;
-import tagemo.main.AttendanceManager;
+import tagemo.main.AttendanceEntry;
 import tagemo.main.Grid;
 
-public class AttendanceGrid extends Grid<Attendance> {
-
-	private AttendanceManager manager;
+public class AttendanceGrid extends Grid<AttendanceEntry> {
 
 	@Override
 	public void createColumns() {
-		TableColumn<Attendance, String> studentCol = new TableColumn<>("Studentas");
-		TableColumn<Attendance, String> dateCol = new TableColumn<>("Data");
-		TableColumn<Attendance, String> wasPresentCol = new TableColumn<>("Data");
+		TableColumn<AttendanceEntry, String> studentCol = new TableColumn<>("Studentas");
+		TableColumn<AttendanceEntry, String> dateCol = new TableColumn<>("Data");
+		TableColumn<AttendanceEntry, String> wasPresentCol = new TableColumn<>("Buvo");
 
-		studentCol.setCellValueFactory(p -> new SimpleStringProperty(p.toString()));
-		dateCol.setCellValueFactory(p -> new SimpleStringProperty((String) p.getValue()[1]));
-		wasPresentCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue()[1].toString()));
+		studentCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getStudent().toString()));
+		dateCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getDate().toString()));
+		wasPresentCol.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().isPresentString()));
 
 		getColumns().addAll(studentCol, dateCol, wasPresentCol);
 

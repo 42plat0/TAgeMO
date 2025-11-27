@@ -7,9 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import tagemo.core.Attendance;
 import tagemo.core.Group;
-import tagemo.main.AttendanceManager;
+import tagemo.main.AttendanceEntry;
 import tagemo.main.Constants;
 import tagemo.main.Form;
 import tagemo.main.Grid;
@@ -27,9 +26,8 @@ public class LandingController {
 
 	private ObservableList<Student> students = FXCollections.observableArrayList();
 	private ObservableList<Group> groups = FXCollections.observableArrayList();
-	private ObservableList<Attendance> attendances = FXCollections.observableArrayList();
+	private ObservableList<AttendanceEntry> attendances = FXCollections.observableArrayList();
 	private GroupManager groupManager = new GroupManager();
-	private AttendanceManager attendanceManager = new AttendanceManager();
 
 	private Integer currentGrid = Constants.NO_GRID;
 
@@ -39,8 +37,6 @@ public class LandingController {
 	private Button createBtn;
 	@FXML
 	private Button addToGroupBtn;
-	@FXML
-	private Button addAttendanceBtn;
 
 	@FXML
 	public void initialize() {
@@ -48,7 +44,6 @@ public class LandingController {
 		if (currentGrid.equals(Constants.NO_GRID)) {
 			createBtn.setVisible(false);
 			addToGroupBtn.setVisible(false);
-			addAttendanceBtn.setVisible(false);
 		}
 	}
 
@@ -75,12 +70,21 @@ public class LandingController {
 
 	@FXML
 	private void handleAttendanceBtnAction(ActionEvent event) {
-		Grid<Attendance> attendanceGrid = new AttendanceGrid();
+		Grid<AttendanceEntry> attendanceGrid = new AttendanceGrid();
 		attendanceGrid.setData(attendances);
-//		((AttendanceGrid) attendanceGrid).setManager(attendanceManager);
 
 		addComponentToContentPane(attendanceGrid);
 		updateCurrentGrid(Constants.ATTENDANCE_GRID);
+	}
+
+	@FXML
+	private void handleReportsBtnAction(ActionEvent event) {
+
+	}
+
+	@FXML
+	private void handleImportExportBtnAction(ActionEvent event) {
+
 	}
 
 	@FXML
@@ -90,11 +94,6 @@ public class LandingController {
 
 	@FXML
 	private void handleAddToGroupBtnAction(ActionEvent event) {
-		new AttendanceForm(students, attendances, attendanceManager).show();
-	}
-
-	@FXML
-	private void handleAddAttendanceBtnAction(ActionEvent event) {
 		if (Constants.STUDENT_GRID == currentGrid) {
 			new MembershipForm(students, groups, groupManager).show();
 		}
@@ -111,6 +110,11 @@ public class LandingController {
 		case Constants.GROUP_GRID:
 			form = new GroupForm();
 			form.setFormTarget(groups);
+			form.show();
+			break;
+		case Constants.ATTENDANCE_GRID:
+			form = new AttendanceForm(students, attendances);
+			form.setFormTarget(attendances);
 			form.show();
 			break;
 		default:
