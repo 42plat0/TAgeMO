@@ -1,6 +1,7 @@
 package tagemo.main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,5 +49,22 @@ public class GroupManager {
 	// TODO
 	public List<Student> getStudentsInGroup(Group group) {
 		return memberships.get(group);
+	}
+
+	public List<Group> getGroupsHavingStudent(Student student) {
+		List<Group> groups = new ArrayList<>(memberships.size());
+		for (var entry : memberships.entrySet()) {
+			if (entry.getValue().contains(student)) {
+				groups.add(entry.getKey());
+			}
+		}
+
+		if (groups.isEmpty()) {
+			System.out.println("Studentas nepriklauso grupei. Grąžinamas tusčias grupių sąrašas.");
+			return Collections.EMPTY_LIST;
+		}
+
+		return groups;
+
 	}
 }
