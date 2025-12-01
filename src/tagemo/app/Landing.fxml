@@ -21,7 +21,6 @@
             <Button fx:id="studentBtn" mnemonicParsing="false" onAction="#handleStudentBtnAction" prefHeight="15.0" prefWidth="120.0" text="Studentai" />
             <Button fx:id="groupBtn" mnemonicParsing="false" onAction="#handleGroupBtnAction" prefHeight="0.0" prefWidth="120.0" text="Grupės" />
             <Button fx:id="attendanceBtn" mnemonicParsing="false" onAction="#handleAttendanceBtnAction" prefHeight="0.0" prefWidth="120.0" text="Lankomumas" />
-            <Button fx:id="reportsBtn" mnemonicParsing="false" onAction="#handleReportsBtnAction" prefHeight="0.0" prefWidth="120.0" text="Ataskaitos" />
             <Button fx:id="importExportBtn" mnemonicParsing="false" onAction="#handleImportExportBtnAction" prefHeight="0.0" prefWidth="120.0" text="Importas/Eksportas" />
          </children>
       </VBox>
@@ -33,11 +32,17 @@
                   <Button fx:id="addToGroupBtn" mnemonicParsing="false" onAction="#handleAddToGroupBtnAction" text="Pridet i grupe" />
                   <VBox fx:id="filterContainer" alignment="CENTER" prefHeight="75.0" prefWidth="104.0">
                      <children>
-                        <ComboBox fx:id="filterPromptCbox" onAction="#initializeFflterContentCbox" prefWidth="150.0" promptText="Pagal..." />
-                        <ComboBox fx:id="filterContentCbox" prefWidth="150.0" />
+                        <ComboBox fx:id="filterPromptCbox" onAction="#initializeFilterContentCbox" prefWidth="150.0" promptText="Pagal..." />
+                        <HBox fx:id="filterByContentContainer" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ComboBox fx:id="filterContentCbox" prefWidth="150.0" />
+                           </children>
+                        </HBox>
                         <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#handleFilterBtnAction" text="Filtruoti" />
                      </children>
                   </VBox>
+                  <Button fx:id="filterAttendentDaysBtn" mnemonicParsing="false" onAction="#handleFilterAttendentDaysBtnAction" text="Rodyti užpildytas dienas" />
+                  <Button fx:id="reportBtn" mnemonicParsing="false" onAction="#handleReportsBtnAction" text="Eksportuoti pdf" />
                </children>
             </HBox>
             <AnchorPane fx:id="contentPane" prefHeight="511.0" prefWidth="658.0" />

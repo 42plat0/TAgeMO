@@ -65,6 +65,20 @@ public class GroupManager {
 		}
 
 		return groups;
+	}
 
+	public static final String getGroupsInString(List<Group> groups) {
+		if (groups == null || groups.isEmpty()) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+
+		for (Group group : groups) {
+			sb.append(group).append(", ");
+		}
+
+		sb.setLength(sb.length() - 2);
+
+		return sb.toString();
 	}
 }

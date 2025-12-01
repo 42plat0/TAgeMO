@@ -9,4 +9,5 @@ public final class Constants {
 
 	public static final String FILTER_BY_GROUP = "Grupę";
 	public static final String FILTER_BY_STUDENT = "Studentą";
+	public static final String FILTER_BY_DATES = "Datas";
 }
