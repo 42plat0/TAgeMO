@@ -22,6 +22,6 @@ public class Student implements Groupable {
 
 	@Override
 	public String toString() {
-		return id + ". " + person.toString();
+		return id + "," + person.toString();
 	}
 }
