@@ -65,13 +65,11 @@ public class StudentReporter implements Reporter<Student> {
 
 	@Override
 	public String getFileExtension() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
