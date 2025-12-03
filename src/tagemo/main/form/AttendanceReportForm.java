@@ -43,4 +43,10 @@ public class AttendanceReportForm extends Form<AttendanceEntry> {
 
 	}
 
+	@Override
+	protected void prefilForm() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

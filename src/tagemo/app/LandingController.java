@@ -18,14 +18,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tagemo.core.Group;
-import tagemo.core.Person;
 import tagemo.main.AttendanceEntry;
 import tagemo.main.Constants;
 import tagemo.main.Form;
 import tagemo.main.Grid;
 import tagemo.main.GroupManager;
 import tagemo.main.Student;
-import tagemo.main.Utils;
 import tagemo.main.form.AttendanceForm;
 import tagemo.main.form.GroupForm;
 import tagemo.main.form.MembershipForm;
@@ -33,6 +31,9 @@ import tagemo.main.form.StudentForm;
 import tagemo.main.grid.AttendanceGrid;
 import tagemo.main.grid.GroupGrid;
 import tagemo.main.grid.StudentGrid;
+import tagemo.reports.PDFReporter;
+import tagemo.reports.Reporter;
+import tagemo.reports.StudentReporter;
 
 public class LandingController {
 
@@ -89,28 +90,28 @@ public class LandingController {
 	}
 
 	private void setDummyData() {
-		students.add(new Student(1, new Person("nelankantis", "test1")));
-		students.add(new Student(2, new Person("xyzGrupe", "111")));
-		students.add(new Student(3, new Person("unionGrupe", "222")));
-		students.add(new Student(4, new Person("unionGrupe1", "333")));
-		students.add(new Student(4, new Person("priklausantis2grupem", "444")));
-
-		groups.add(new Group(1, "grupe-test1"));
-		groups.add(new Group(2, "Gxyz"));
-		groups.add(new Group(3, "union"));
-
-		attendances.add(new AttendanceEntry(1, students.get(0), LocalDate.now(), false));
-		attendances.add(new AttendanceEntry(2, students.get(1), LocalDate.now(), true));
-		attendances.add(new AttendanceEntry(3, students.get(2), LocalDate.now(), true));
-		attendances.add(new AttendanceEntry(4, students.get(3), LocalDate.now(), true));
-		attendances.add(new AttendanceEntry(5, students.get(4), LocalDate.now(), true));
-
-		groupManager.addStudentToGroup(students.get(1), groups.get(1));
-		groupManager.addStudentToGroup(students.get(0), groups.get(0));
-		groupManager.addStudentToGroup(students.get(2), groups.get(2));
-		groupManager.addStudentToGroup(students.get(3), groups.get(2));
-		groupManager.addStudentToGroup(students.get(4), groups.get(1));
-		groupManager.addStudentToGroup(students.get(4), groups.get(2));
+//		students.add(new Student(1, new Person("nelankantis", "test1")));
+//		students.add(new Student(2, new Person("xyzGrupe", "111")));
+//		students.add(new Student(3, new Person("unionGrupe", "222")));
+//		students.add(new Student(4, new Person("unionGrupe1", "333")));
+//		students.add(new Student(4, new Person("priklausantis2grupem", "444")));
+//
+//		groups.add(new Group(1, "grupe-test1"));
+//		groups.add(new Group(2, "Gxyz"));
+//		groups.add(new Group(3, "union"));
+//
+//		attendances.add(new AttendanceEntry(1, students.get(0), LocalDate.now(), false));
+//		attendances.add(new AttendanceEntry(2, students.get(1), LocalDate.now(), true));
+//		attendances.add(new AttendanceEntry(3, students.get(2), LocalDate.now(), true));
+//		attendances.add(new AttendanceEntry(4, students.get(3), LocalDate.now(), true));
+//		attendances.add(new AttendanceEntry(5, students.get(4), LocalDate.now(), true));
+//
+//		groupManager.addStudentToGroup(students.get(1), groups.get(1));
+//		groupManager.addStudentToGroup(students.get(0), groups.get(0));
+//		groupManager.addStudentToGroup(students.get(2), groups.get(2));
+//		groupManager.addStudentToGroup(students.get(3), groups.get(2));
+//		groupManager.addStudentToGroup(students.get(4), groups.get(1));
+//		groupManager.addStudentToGroup(students.get(4), groups.get(2));
 
 	}
 
@@ -167,9 +168,10 @@ public class LandingController {
 	private void handleImportExportBtnAction(ActionEvent event) {
 		Button importBtn = new Button("Importuoti studentus is CSV");
 		importBtn.setOnAction(e -> {
-			File file = Utils.chooseAndGetCsv(contentPane, "Ikelti studentų duomenis", false);
+			File file = Reporter.chooseAndGetCsv(contentPane, "Ikelti studentų duomenis", false);
 			try {
-				List<Student> importedStudents = Utils.parseImportedStudents(Utils.importStudents(file));
+				Reporter<Student> reporter = new StudentReporter();
+				List<Student> importedStudents = reporter.dataImport(file);
 				students.addAll(importedStudents);
 
 			} catch (IOException ex) {
@@ -178,9 +180,11 @@ public class LandingController {
 		});
 		Button exportBtn = new Button("Eksportuoti studentus i CSV");
 		exportBtn.setOnAction(e -> {
-			File file = Utils.chooseAndGetCsv(contentPane, "Išsaugoti studentų duomenis sąraše", true);
+			File file = Reporter.chooseAndGetCsv(contentPane, "Išsaugoti studentų duomenis sąraše", true);
 			try {
-				Utils.exportStudents(file, students, groupManager);
+				Reporter<Student> reporter = new StudentReporter();
+				reporter.export(students, file);
+//				Utils.exportStudents(file, students, groupManager);
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
@@ -212,12 +216,12 @@ public class LandingController {
 
 	@FXML
 	private void handleReportsBtnAction() {
-		File file = Utils.chooseAndGetPdf(contentPane, "Išsaugoti studentų lankomumo sąrašą");
+		File file = Reporter.chooseAndGetPdf(contentPane, "Išsaugoti studentų lankomumo sąrašą");
 
 		if (file != null) {
 			try {
-				Utils.exportDataToPdf(file, !filteredAttendances.isEmpty() ? filteredAttendances : attendances,
-						groupManager);
+				Reporter<AttendanceEntry> reporter = new PDFReporter();
+				reporter.export(!filteredAttendances.isEmpty() ? filteredAttendances : attendances, file);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
