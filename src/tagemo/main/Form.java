@@ -18,6 +18,7 @@ import lombok.Setter;;
 public abstract class Form<T> {
 
 	public ObservableList<T> data;
+	public T editingItem = null;
 
 	public List<? extends Node> fields;
 	public Stage stage;
@@ -50,11 +51,20 @@ public abstract class Form<T> {
 	}
 
 	public void show() {
+		prefilForm();
 		stage.show();
 	}
 
 	public void finishSubmit() {
 		stage.close();
+	}
+
+	protected boolean isEdit() {
+		return editingItem != null;
+	}
+
+	protected Integer getItemIdxInData(ObservableList<T> list, T item) {
+		return list.stream().filter(val -> val.equals(item)).map(found -> list.indexOf(found)).findFirst().orElse(-1);
 	}
 
 	public abstract void setFormTarget(ObservableList<T> items);
@@ -64,4 +74,7 @@ public abstract class Form<T> {
 	protected abstract void handleSubmit();
 
 	protected abstract String getTitle();
+
+	// TODO to abstract
+	protected abstract void prefilForm();
 }

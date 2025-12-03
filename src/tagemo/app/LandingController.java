@@ -287,21 +287,15 @@ public class LandingController {
 
 	@FXML
 	private void handleCreateBtnAction(ActionEvent event) {
-		showDialogPane();
+		showDialogPane(null);
 	}
 
 	@FXML
 	private void handleEditBtnAction(ActionEvent event) {
 		Grid grid = (Grid) contentPane.getChildren().get(0);
 		var selectedItem = grid.getSelectionModel().getSelectedItem();
-		if (selectedItem instanceof Student) {
-
-			System.out.println("St");
-		} else if (selectedItem instanceof Group) {
-			System.out.println("Group");
-		} else if (selectedItem instanceof AttendanceEntry) {
-
-			System.out.println("Attendance");
+		if (selectedItem != null) {
+			showDialogPane(selectedItem);
 		}
 	}
 
@@ -312,20 +306,24 @@ public class LandingController {
 		}
 	}
 
-	private void showDialogPane() {
+	private void showDialogPane(Object editingItem) {
 		Form form = null;
+		Object editedItem = null;
 		switch (currentGrid) {
 		case Constants.STUDENT_GRID:
 			form = new StudentForm();
 			form.setFormTarget(students);
+			form.setEditingItem(editingItem);
 			break;
 		case Constants.GROUP_GRID:
 			form = new GroupForm();
 			form.setFormTarget(groups);
+			form.setEditingItem(editingItem);
 			break;
 		case Constants.ATTENDANCE_GRID:
 			form = new AttendanceForm(students, attendances);
 			form.setFormTarget(attendances);
+			form.setEditingItem(editingItem);
 			break;
 		default:
 			break;

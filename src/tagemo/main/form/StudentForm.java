@@ -16,7 +16,7 @@ public class StudentForm extends Form<Student> {
 
 	@Override
 	protected List<TextField> createFields() {
-		return List.of(new TextField("Vardas"), new TextField("Pavardė"));
+		return List.of(new TextField(), new TextField());
 	}
 
 	@Override
@@ -24,19 +24,46 @@ public class StudentForm extends Form<Student> {
 		String firstName = ((TextField) fields.get(0)).getText();
 		String lastName = ((TextField) fields.get(1)).getText();
 
-		insertData(new Student(data.size() + 1, new Person(firstName, lastName)));
+		Student student = null;
+		if (!isEdit()) {
+			student = new Student(data.size() + 1, new Person(firstName, lastName));
+			insertData(student);
+		} else {
+			student = getEditingItem();
+			student.setPerson(new Person(firstName, lastName));
+			ObservableList<Student> students = getData();
+			Integer idx = getItemIdxInData(students, student);
+			if (!idx.equals(-1)) {
+				students.set(idx, student);
+				setData(students);
+			} else {
+				System.out.println("Nerastas studentas redaguoti");
+			}
+		}
 
 		finishSubmit();
 	}
 
 	@Override
 	protected String getTitle() {
-		return "Kurti studentą";
+		return !isEdit() ? "Kurti studentą" : "Redaguoti studenta";
 	}
 
 	@Override
 	public void setFormTarget(ObservableList<Student> students) {
 		setData(students);
+	}
+
+	@Override
+	public void prefilForm() {
+		if (!isEdit()) {
+			return;
+		}
+
+		Student student = getEditingItem();
+		((TextField) fields.get(0)).setText(student.getPerson().getFirstName());
+		((TextField) fields.get(1)).setText(student.getPerson().getLastName());
+
 	}
 
 }

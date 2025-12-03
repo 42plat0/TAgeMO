@@ -47,13 +47,31 @@ public class AttendanceForm extends Form<AttendanceEntry> {
 			System.out.println("Missing fields");
 			return;
 		}
-
 		boolean wasPresent = pv.equals("Buvo");
 
-		AttendanceEntry entry = new AttendanceEntry(attendances.size() + 1, student, date, wasPresent);
+		AttendanceEntry entry = null;
 
-		if (entry != null) {
-			insertData(entry);
+		if (!isEdit()) {
+			entry = new AttendanceEntry(attendances.size() + 1, student, date, wasPresent);
+
+			if (entry != null) {
+				insertData(entry);
+			}
+
+		} else {
+			entry = getEditingItem();
+			entry.setStudent(student);
+			entry.setDate(date);
+			entry.setPresent(wasPresent);
+
+			ObservableList<AttendanceEntry> attendances = getData();
+			Integer idx = getItemIdxInData(attendances, entry);
+			if (!idx.equals(-1)) {
+				attendances.set(idx, entry);
+				setData(attendances);
+			} else {
+				System.out.println("Nerastas redaguojamas lankomumo irasas");
+			}
 		}
 
 		finishSubmit();
@@ -62,6 +80,15 @@ public class AttendanceForm extends Form<AttendanceEntry> {
 	@Override
 	protected String getTitle() {
 		return "Add Attendance";
+	}
+
+	@Override
+	protected void prefilForm() {
+		// TODO Auto-generated method stub
+		AttendanceEntry editedItem = getEditingItem();
+		((ComboBox<Student>) fields.get(0)).setValue(editedItem.getStudent());
+		((DatePicker) fields.get(1)).setValue(editedItem.getDate());
+		((ComboBox<String>) fields.get(2)).setValue(editedItem.isPresentString());
 	}
 
 }
