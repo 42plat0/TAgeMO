@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import tagemo.core.Group;
+import tagemo.core.Person;
 import tagemo.main.AttendanceEntry;
 import tagemo.main.Constants;
 import tagemo.main.Form;
@@ -48,6 +49,8 @@ public class LandingController {
 	@FXML
 	private AnchorPane contentPane;
 	@FXML
+	private Button editBtn;
+	@FXML
 	private Button createBtn;
 	@FXML
 	private Button addToGroupBtn;
@@ -76,6 +79,7 @@ public class LandingController {
 			filterContainer.setVisible(false);
 			filterAttendentDaysBtn.setVisible(false);
 			reportBtn.setVisible(false);
+			editBtn.setVisible(false);
 		}
 
 		// Choices for attendance filtering
@@ -85,28 +89,28 @@ public class LandingController {
 	}
 
 	private void setDummyData() {
-//		students.add(new Student(1, new Person("nelankantis", "test1")));
-//		students.add(new Student(2, new Person("xyzGrupe", "111")));
-//		students.add(new Student(3, new Person("unionGrupe", "222")));
-//		students.add(new Student(4, new Person("unionGrupe1", "333")));
-//		students.add(new Student(4, new Person("priklausantis2grupem", "444")));
-//
-//		groups.add(new Group(1, "grupe-test1"));
-//		groups.add(new Group(2, "Gxyz"));
-//		groups.add(new Group(3, "union"));
-//
-//		attendances.add(new AttendanceEntry(1, students.get(0), LocalDate.now(), false));
-//		attendances.add(new AttendanceEntry(2, students.get(1), LocalDate.now(), true));
-//		attendances.add(new AttendanceEntry(3, students.get(2), LocalDate.now(), true));
-//		attendances.add(new AttendanceEntry(4, students.get(3), LocalDate.now(), true));
-//		attendances.add(new AttendanceEntry(5, students.get(4), LocalDate.now(), true));
-//
-//		groupManager.addStudentToGroup(students.get(1), groups.get(1));
-//		groupManager.addStudentToGroup(students.get(0), groups.get(0));
-//		groupManager.addStudentToGroup(students.get(2), groups.get(2));
-//		groupManager.addStudentToGroup(students.get(3), groups.get(2));
-//		groupManager.addStudentToGroup(students.get(4), groups.get(1));
-//		groupManager.addStudentToGroup(students.get(4), groups.get(2));
+		students.add(new Student(1, new Person("nelankantis", "test1")));
+		students.add(new Student(2, new Person("xyzGrupe", "111")));
+		students.add(new Student(3, new Person("unionGrupe", "222")));
+		students.add(new Student(4, new Person("unionGrupe1", "333")));
+		students.add(new Student(4, new Person("priklausantis2grupem", "444")));
+
+		groups.add(new Group(1, "grupe-test1"));
+		groups.add(new Group(2, "Gxyz"));
+		groups.add(new Group(3, "union"));
+
+		attendances.add(new AttendanceEntry(1, students.get(0), LocalDate.now(), false));
+		attendances.add(new AttendanceEntry(2, students.get(1), LocalDate.now(), true));
+		attendances.add(new AttendanceEntry(3, students.get(2), LocalDate.now(), true));
+		attendances.add(new AttendanceEntry(4, students.get(3), LocalDate.now(), true));
+		attendances.add(new AttendanceEntry(5, students.get(4), LocalDate.now(), true));
+
+		groupManager.addStudentToGroup(students.get(1), groups.get(1));
+		groupManager.addStudentToGroup(students.get(0), groups.get(0));
+		groupManager.addStudentToGroup(students.get(2), groups.get(2));
+		groupManager.addStudentToGroup(students.get(3), groups.get(2));
+		groupManager.addStudentToGroup(students.get(4), groups.get(1));
+		groupManager.addStudentToGroup(students.get(4), groups.get(2));
 
 	}
 
@@ -287,6 +291,21 @@ public class LandingController {
 	}
 
 	@FXML
+	private void handleEditBtnAction(ActionEvent event) {
+		Grid grid = (Grid) contentPane.getChildren().get(0);
+		var selectedItem = grid.getSelectionModel().getSelectedItem();
+		if (selectedItem instanceof Student) {
+
+			System.out.println("St");
+		} else if (selectedItem instanceof Group) {
+			System.out.println("Group");
+		} else if (selectedItem instanceof AttendanceEntry) {
+
+			System.out.println("Attendance");
+		}
+	}
+
+	@FXML
 	private void handleAddToGroupBtnAction(ActionEvent event) {
 		if (List.of(Constants.STUDENT_GRID, Constants.GROUP_GRID).contains(currentGrid)) {
 			new MembershipForm(students, groups, groupManager).show();
@@ -332,5 +351,6 @@ public class LandingController {
 		}
 		currentGrid = val;
 		createBtn.setVisible(true);
+		editBtn.setVisible(true);
 	}
 }

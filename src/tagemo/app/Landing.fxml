@@ -29,6 +29,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Button fx:id="createBtn" mnemonicParsing="false" onAction="#handleCreateBtnAction" text="Kurti" />
+                  <Button fx:id="editBtn" mnemonicParsing="false" onAction="#handleEditBtnAction" text="Redaguoti" />
                   <Button fx:id="addToGroupBtn" mnemonicParsing="false" onAction="#handleAddToGroupBtnAction" text="Pridet i grupe" />
                   <VBox fx:id="filterContainer" alignment="CENTER" prefHeight="75.0" prefWidth="104.0">
                      <children>
